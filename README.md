@@ -1,2 +1,0 @@
-# BrokenShell
-Passion Project
