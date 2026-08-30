@@ -1,0 +1,32 @@
+title: Broken Shell
+description: My Tech Journey
+url: "https://brokenshell.net"
+author: skipper
+
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+
+permalink: /:slug/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

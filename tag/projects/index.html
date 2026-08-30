@@ -1,0 +1,18 @@
+---
+layout: default
+title: Projects
+permalink: /tag/projects/
+---
+<div class="section-label">// projects</div>
+
+<main class="card-grid">
+    {% for post in site.posts %}
+      {% if post.tags contains "projects" %}
+      <a class="card" href="{{ post.url | relative_url }}">
+          <div class="card-tag">[projects]</div>
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p class="card-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>
+      </a>
+      {% endif %}
+    {% endfor %}
+</main>
