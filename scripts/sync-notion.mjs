@@ -72,11 +72,10 @@ async function main() {
 
     const frontMatter = [
       "---",
-      "layout: post",
       `title: ${JSON.stringify(title)}`,
       `date: ${date}`,
       `tags: ${JSON.stringify(tags)}`,
-      description ? `description: ${JSON.stringify(description)}` : null,
+      description ? `excerpt: ${JSON.stringify(description)}` : null,
       `notion_id: ${page.id}`,
       "---",
       "",
