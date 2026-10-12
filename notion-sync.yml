@@ -1,0 +1,40 @@
+name: Sync Notion
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # every 30 minutes
+  workflow_dispatch:          # manual "Run workflow" button
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-save @notionhq/client@2 notion-to-md@3
+
+      - name: Pull posts from Notion
+        run: node scripts/sync-notion.mjs
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+
+      - name: Commit changes
+        run: |
+          git config user.name "notion-sync[bot]"
+          git config user.email "actions@github.com"
+          git add -A _posts assets/images/notion
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Sync posts from Notion"
+            git push
+          fi
